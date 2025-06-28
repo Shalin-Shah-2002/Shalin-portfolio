@@ -1,10 +1,66 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import "./style.css"
 
 export const Component = () => {
+    const [showGreeting, setShowGreeting] = useState(true);
+    const [hideOverlay, setHideOverlay] = useState(false);
+
+    useEffect(() => {
+        if (showGreeting) {
+            const timer1 = setTimeout(() => setHideOverlay(true), 1800); // Start fade out
+            const timer2 = setTimeout(() => setShowGreeting(false), 2500); // Remove overlay
+            return () => { clearTimeout(timer1); clearTimeout(timer2); };
+        }
+    }, [showGreeting]);
+
     return (
         <div id="webcrumbs">
+            {showGreeting && (
+                <div
+                    className={`fixed top-0 left-0 w-screen h-screen min-h-screen min-w-full z-[99999] flex items-center justify-center transition-opacity duration-700 ${hideOverlay ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        minWidth: '100vw',
+                        minHeight: '100vh',
+                        zIndex: 99999,
+                        background: 'rgba(255,255,255,0.20)',
+                        backdropFilter: 'blur(18px)',
+                        WebkitBackdropFilter: 'blur(18px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'opacity 0.7s',
+                        pointerEvents: hideOverlay ? 'none' : 'auto',
+                        opacity: hideOverlay ? 0 : 1,
+                    }}
+                >
+                    <div className="text-center">
+                        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4 animate-fadeInUp">Welcome to My Portfolio</h1>
+                        <p className="text-xl text-gray-700 animate-fadeInUp delay-200">Glad to see you here!</p>
+                    </div>
+                    <style>{`
+                        .animate-fadeInUp {
+                            opacity: 0;
+                            transform: translateY(40px);
+                            animation: fadeInUp 1s forwards;
+                        }
+                        .animate-fadeInUp.delay-200 {
+                            animation-delay: 0.2s;
+                        }
+                        @keyframes fadeInUp {
+                            to {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+                    `}</style>
+                </div>
+            )}
             <div className="w-full max-w-full bg-gray-900 text-gray-300 font-mono min-h-screen">
                 <div className="flex h-screen">
                     <aside className="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
@@ -101,7 +157,7 @@ export const Component = () => {
                         <div className="flex-1 overflow-y-auto">
                             <div className="flex flex-col gap-4">
                                 <section
-                                    id="hero"                                    className="min-h-screen flex items-center justify-center p-8 relative overflow-hidden animate-gradient"
+                                    id="hero" className="min-h-screen flex items-center justify-center p-8 relative overflow-hidden animate-gradient"
                                 >
                                     <style>{`
                                         .animate-gradient {
@@ -188,6 +244,18 @@ export const Component = () => {
                                         <p className="text-xl md:text-2xl text-gray-400 mb-8">
                                             Flutter & MERN Stack Dev | Building Smart Apps with AI
                                         </p>
+                                        {/* Social Icons */}
+                                        <div className="flex justify-center gap-6 mb-8">
+                                            <a href="https://github.com/Shalin-Shah-2002" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                                                <i className="fab fa-github text-2xl md:text-3xl text-gray-300 hover:text-primary-400"></i>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/shalin-shah0705/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                                                <i className="fab fa-linkedin text-2xl md:text-3xl text-blue-400 hover:text-primary-400"></i>
+                                            </a>
+                                            <a href="https://medium.com/@2002shalin" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                                                <i className="fab fa-medium text-2xl md:text-3xl text-gray-300 hover:text-primary-400"></i>
+                                            </a>
+                                        </div>
                                         <div className="flex flex-wrap justify-center gap-4 mb-8">
                                             <span className="px-4 py-2 bg-primary-500 bg-opacity-20 text-primary-300 rounded-full border border-primary-500">
                                                 Computer Science B.Tech
@@ -199,15 +267,24 @@ export const Component = () => {
                                                 UI/UX Designer
                                             </span>
                                         </div>
-                                        <div className="flex justify-center gap-4">
-                                            <button className="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-all transform hover:scale-105 flex items-center gap-2">
+                                        <div className="flex justify-center gap-4 mb-6">
+                                            <a
+                                                href={require('./Shalin Resume(MERN+Flutter).pdf')}
+                                                download="Shalin_Resume.pdf"
+                                                className="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-all transform hover:scale-105 flex items-center gap-2"
+                                            >
                                                 <span className="material-symbols-outlined">download</span>
                                                 Download Resume
-                                            </button>
-                                            <button className="px-6 py-3 border border-gray-600 hover:border-primary-500 text-gray-300 hover:text-primary-300 rounded-lg transition-all transform hover:scale-105 flex items-center gap-2">
+                                            </a>
+                                            <a
+                                                href="https://mail.google.com/mail/?view=cm&fs=1&to=2002shalin@gmail.com&su=Contact%20from%20Portfolio"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="px-6 py-3 border border-gray-600 hover:border-primary-500 text-gray-300 hover:text-primary-300 rounded-lg transition-all transform hover:scale-105 flex items-center gap-2"
+                                            >
                                                 <span className="material-symbols-outlined">mail</span>
                                                 Get In Touch
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                     {/* Next: "Add animated code snippets background" */}
@@ -252,131 +329,72 @@ export const Component = () => {
                                 </div>
                                 <section id="about" className="py-16 px-8 bg-gray-900">
                                     <div className="max-w-6xl mx-auto">
-                                        <h2 className="text-3xl font-bold text-primary-400 mb-8 flex items-center gap-2">
+                                        <h2 className="text-3xl font-bold text-primary-400 mb-10 flex items-center gap-2">
                                             <span className="material-symbols-outlined">person</span>
                                             About Me
                                         </h2>
-                                        <div className="grid lg:grid-cols-2 gap-12">
-                                            <div>
-                                                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 mb-6">                                                    <h3 className="text-xl font-semibold text-gray-200 mb-4">
-                                                        {"// Background"}
-                                                    </h3>
-                                                    <p className="text-gray-400 leading-relaxed">
-                                                        Passionate Computer Science B.Tech student with a strong
-                                                        foundation in full-stack development. I specialize in creating
-                                                        innovative mobile and web applications using modern technologies
-                                                        like Flutter, React, and AI integration. My journey combines
-                                                        technical expertise with creative problem-solving to build
-                                                        user-centric solutions.
-                                                    </p>
-                                                </div>
+                                        <div className="h-4"></div>
+                                        <div className="grid md:grid-cols-3 gap-8">
+                                            {/* About Card */}
+                                            <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg flex flex-col justify-between">
+                                                <h3 className="text-2xl font-semibold text-primary-300 mb-4">Who am I?</h3>
+                                                <p className="text-gray-300 leading-relaxed mb-4">
+                                                    Hi! I'm <span className="text-primary-400 font-bold">Shalin Shah</span>, a passionate Computer Science B.Tech student and a creative full-stack developer. I love building smart, user-centric web and mobile apps using the latest technologies. My journey blends technical expertise with a strong sense of design and a drive to solve real-world problems.
+                                                </p>
+                                            </div>
 
-                                                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">                                                    <h3 className="text-xl font-semibold text-gray-200 mb-4">
-                                                        {"// What I Do"}
-                                                    </h3>
-                                                    <div className="space-y-3">
-                                                        <div className="flex items-center gap-3">
-                                                            <span className="material-symbols-outlined text-primary-400">
-                                                                smartphone
-                                                            </span>
-                                                            <span>Mobile App Development (Flutter)</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-3">
-                                                            <span className="material-symbols-outlined text-green-400">
-                                                                web
-                                                            </span>
-                                                            <span>Full Stack Web Development (MERN)</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-3">
-                                                            <span className="material-symbols-outlined text-purple-400">
-                                                                palette
-                                                            </span>
-                                                            <span>UI/UX Design & Prototyping</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-3">
-                                                            <span className="material-symbols-outlined text-yellow-400">
-                                                                smart_toy
-                                                            </span>
-                                                            <span>AI Integration & Machine Learning</span>
-                                                        </div>
+                                            {/* Technical Skills Card */}
+                                            <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg">
+                                                <h3 className="text-2xl font-semibold text-primary-300 mb-4">Technical Skills</h3>
+                                                <div className="mb-3">
+                                                    <h4 className="text-sm font-semibold text-primary-400 mb-2">Languages</h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        <span className="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded text-xs border border-blue-500">Python</span>
+                                                        <span className="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded text-xs border border-cyan-500">Dart</span>
+                                                        <span className="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded text-xs border border-yellow-500">JavaScript</span>
+                                                        <span className="px-3 py-1 bg-gray-500 bg-opacity-20 text-gray-300 rounded text-xs border border-gray-500">HTML</span>
+                                                        <span className="px-3 py-1 bg-orange-400 bg-opacity-20 text-orange-200 rounded text-xs border border-orange-400">CSS</span>
+                                                        <span className="px-3 py-1 bg-green-500 bg-opacity-20 text-green-300 rounded text-xs border border-green-500">Node.js</span>
+                                                        <span className="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded text-xs border border-purple-500">Kotlin</span>
+                                                        <span className="px-3 py-1 bg-indigo-500 bg-opacity-20 text-indigo-300 rounded text-xs border border-indigo-500">SQL (MySQL)</span>
+                                                        <span className="px-3 py-1 bg-green-700 bg-opacity-20 text-green-400 rounded text-xs border border-green-700">JAVA</span>
+                                                        <span className="px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-300 rounded text-xs border border-pink-500">JSX</span>
+                                                    </div>
+                                                </div>
+                                                <div className="mb-3">
+                                                    <h4 className="text-sm font-semibold text-primary-400 mb-2">Libraries & Frameworks</h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        <span className="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded text-xs border border-blue-500">Flutter</span>
+                                                        <span className="px-3 py-1 bg-green-500 bg-opacity-20 text-green-300 rounded text-xs border border-green-500">Flask</span>
+                                                        <span className="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded text-xs border border-yellow-500">FastAPI</span>
+                                                        <span className="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded text-xs border border-cyan-500">React (with JSX)</span>
+                                                        <span className="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded text-xs border border-purple-500">Express.js</span>
+                                                        <span className="px-3 py-1 bg-gray-500 bg-opacity-20 text-gray-300 rounded text-xs border border-gray-500">Material UI</span>
+                                                        <span className="px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-300 rounded text-xs border border-pink-500">Provider (Flutter)</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-sm font-semibold text-primary-400 mb-2">Tools & Technologies</h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        <span className="px-3 py-1 bg-orange-500 bg-opacity-20 text-orange-300 rounded text-xs border border-orange-500">Firebase</span>
+                                                        <span className="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded text-xs border border-yellow-500">MongoDB</span>
+                                                        <span className="px-3 py-1 bg-green-700 bg-opacity-20 text-green-400 rounded text-xs border border-green-700">REST API</span>
+                                                        <span className="px-3 py-1 bg-gray-700 bg-opacity-20 text-gray-300 rounded text-xs border border-gray-700">Git</span>
+                                                        <span className="px-3 py-1 bg-blue-700 bg-opacity-20 text-blue-300 rounded text-xs border border-blue-700">Android Studio</span>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div>
-                                                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 mb-6">                                                    <h3 className="text-xl font-semibold text-gray-200 mb-4">
-                                                        {"// Technical Skills"}
-                                                    </h3>
-                                                    <div className="space-y-4">
-                                                        <div>
-                                                            <h4 className="text-sm font-semibold text-primary-300 mb-2">
-                                                                Languages
-                                                            </h4>
-                                                            <div className="flex flex-wrap gap-2">
-                                                                <span className="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded text-sm border border-blue-500">
-                                                                    Python
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded text-sm border border-cyan-500">
-                                                                    Dart
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded text-sm border border-yellow-500">
-                                                                    JavaScript
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-green-500 bg-opacity-20 text-green-300 rounded text-sm border border-green-500">
-                                                                    Java
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-red-500 bg-opacity-20 text-red-300 rounded text-sm border border-red-500">
-                                                                    C++
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <h4 className="text-sm font-semibold text-primary-300 mb-2">
-                                                                Frameworks & Tools
-                                                            </h4>
-                                                            <div className="flex flex-wrap gap-2">
-                                                                <span className="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded text-sm border border-blue-500">
-                                                                    Flutter
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded text-sm border border-cyan-500">
-                                                                    React
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-green-500 bg-opacity-20 text-green-300 rounded text-sm border border-green-500">
-                                                                    Node.js
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-orange-500 bg-opacity-20 text-orange-300 rounded text-sm border border-orange-500">
-                                                                    Firebase
-                                                                </span>
-                                                                <span className="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded text-sm border border-purple-500">
-                                                                    MongoDB
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">                                                    <h3 className="text-xl font-semibold text-gray-200 mb-4">
-                                                        {"// Soft Skills"}
-                                                    </h3>
-                                                    <div className="grid grid-cols-2 gap-3">
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="w-2 h-2 bg-primary-400 rounded-full"></span>
-                                                            <span className="text-sm">Problem Solving</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                                                            <span className="text-sm">Team Management</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                                                            <span className="text-sm">Creative Thinking</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="w-2 h-2 bg-yellow-400 rounded-full"></span>
-                                                            <span className="text-sm">Communication</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            {/* Soft Skills Card */}
+                                            <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg flex flex-col justify-between">
+                                                <h3 className="text-2xl font-semibold text-primary-300 mb-4">Soft Skills</h3>
+                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-300 text-sm">
+                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-primary-400 rounded-full"></span>Excellent communication</li>
+                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-green-400 rounded-full"></span>Troubleshooting</li>
+                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-purple-400 rounded-full"></span>Problem Solving</li>
+                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-yellow-400 rounded-full"></span>Team Management</li>
+                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-400 rounded-full"></span>Decision Making</li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -402,8 +420,8 @@ export const Component = () => {
                                                     </div>
                                                 </div>
                                                 <p className="text-gray-400 mb-2">
-                                                    <span className="font-semibold">Role:</span> Full Stack Developer<br/>
-                                                    <span className="font-semibold">Duration:</span> May 2025 – Present<br/>
+                                                    <span className="font-semibold">Role:</span> Full Stack Developer<br />
+                                                    <span className="font-semibold">Duration:</span> May 2025 – Present<br />
                                                     <span className="font-semibold">Type:</span> Individual Project / Capstone
                                                 </p>
                                                 <div className="flex flex-wrap gap-2 mb-4">
@@ -458,8 +476,8 @@ export const Component = () => {
                                                     </div>
                                                 </div>
                                                 <p className="text-gray-400 mb-2">
-                                                    <span className="font-semibold">Role:</span> Full Stack Developer<br/>
-                                                    <span className="font-semibold">Duration:</span> May 2025 – May 2025<br/>
+                                                    <span className="font-semibold">Role:</span> Full Stack Developer<br />
+                                                    <span className="font-semibold">Duration:</span> May 2025 – May 2025<br />
                                                     <span className="font-semibold">Type:</span> Individual Project
                                                 </p>
                                                 <div className="flex flex-wrap gap-2 mb-4">
@@ -505,8 +523,8 @@ export const Component = () => {
                                                     </div>
                                                 </div>
                                                 <p className="text-gray-400 mb-2">
-                                                    <span className="font-semibold">Role:</span> Mobile App Developer<br/>
-                                                    <span className="font-semibold">Duration:</span> January 2025 – May 2025<br/>
+                                                    <span className="font-semibold">Role:</span> Mobile App Developer<br />
+                                                    <span className="font-semibold">Duration:</span> January 2025 – May 2025<br />
                                                     <span className="font-semibold">Type:</span> Individual Project
                                                 </p>
                                                 <div className="flex flex-wrap gap-2 mb-4">
@@ -548,8 +566,8 @@ export const Component = () => {
                                                     </div>
                                                 </div>
                                                 <p className="text-gray-400 mb-2">
-                                                    <span className="font-semibold">Role:</span> Mobile App Developer<br/>
-                                                    <span className="font-semibold">Duration:</span> June 2024 – September 2024<br/>
+                                                    <span className="font-semibold">Role:</span> Mobile App Developer<br />
+                                                    <span className="font-semibold">Duration:</span> June 2024 – September 2024<br />
                                                     <span className="font-semibold">Type:</span> Individual Project
                                                 </p>
                                                 <div className="flex flex-wrap gap-2 mb-4">
@@ -589,8 +607,8 @@ export const Component = () => {
                                                     </div>
                                                 </div>
                                                 <p className="text-gray-400 mb-2">
-                                                    <span className="font-semibold">Role:</span> Mobile App Developer<br/>
-                                                    <span className="font-semibold">Duration:</span> November 2024 – January 2025<br/>
+                                                    <span className="font-semibold">Role:</span> Mobile App Developer<br />
+                                                    <span className="font-semibold">Duration:</span> November 2024 – January 2025<br />
                                                     <span className="font-semibold">Type:</span> College Project
                                                 </p>
                                                 <div className="flex flex-wrap gap-2 mb-4">
@@ -799,26 +817,32 @@ export const Component = () => {
                                                         <span className="text-gray-300">$ ls -la contact/</span>
                                                     </div>
                                                     <div className="text-gray-400 space-y-1 ml-4">
-                                                        <div className="flex items-center gap-2">
+                                                        <a
+                                                            href="https://mail.google.com/mail/?view=cm&fs=1&to=2002shalin@gmail.com&su=Contact%20from%20Portfolio"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="flex items-center gap-2 hover:underline hover:text-primary-400 transition-colors"
+                                                        >
                                                             <span className="material-symbols-outlined text-sm text-primary-400">
                                                                 mail
                                                             </span>
                                                             <span>email: 2002shalin@gmail.com</span>
-                                                        </div>
+                                                        </a>
                                                         <div className="flex items-center gap-2">
                                                             <i className="fab fa-linkedin text-sm text-blue-400"></i>
-                                                            <span>linkedin: /in/shalin-shah</span>
+                                                            <span>linkedin: <a href="https://www.linkedin.com/in/shalin-shah0705/">shalin-shah (Flutter Developer)</a></span>
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             <i className="fab fa-github text-sm text-gray-400"></i>
-                                                            <span>github: /shalin-shah</span>
+                                                            <span>github: <a href="https://github.com/Shalin-Shah-2002"> Shalin-Shah-2002</a></span>
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             <span className="material-symbols-outlined text-sm text-green-400">
                                                                 location_on
                                                             </span>
-                                                            <span>location: India</span>
+                                                            <span>Current location: Anand,India</span>
                                                         </div>
+
                                                     </div>
 
                                                     <div className="flex mt-4">
