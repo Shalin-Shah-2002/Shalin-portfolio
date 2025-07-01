@@ -63,7 +63,20 @@ export const Component = () => {
             )}
             <div className="w-full max-w-full bg-gray-900 text-gray-300 font-mono min-h-screen">
                 <div className="flex h-screen">
-                    <aside className="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
+                    {/* Sidebar - Completely hidden on mobile (below 1024px), visible on desktop only */}
+                    <aside className="sidebar-desktop hidden lg:flex lg:w-50 bg-gray-800 border-r border-gray-700 flex-col">
+                        <style>{`
+                            @media (max-width: 1023px) {
+                                .sidebar-desktop {
+                                    display: none !important;
+                                }
+                            }
+                            @media (min-width: 1024px) {
+                                .sidebar-desktop {
+                                    width: 320px !important;
+                                }
+                            }
+                        `}</style>
                         <div className="p-4 border-b border-gray-700">
                             <div className="flex items-center gap-2 mb-4">
                                 <div className="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -135,7 +148,7 @@ export const Component = () => {
                         </div>
                     </aside>
 
-                    <main className="flex-1 flex flex-col overflow-hidden">
+                    <main className="flex-1 w-full lg:w-auto flex flex-col overflow-hidden">
                         <header className="bg-gray-800 border-b border-gray-700 p-2">
                             <div className="flex items-center gap-4">
                                 <div className="flex items-center gap-2 bg-gray-900 px-3 py-1 rounded">
@@ -269,7 +282,7 @@ export const Component = () => {
                                         </div>
                                         <div className="flex justify-center gap-4 mb-6">
                                             <a
-                                                href={require('./Shalin Resume(MERN+Flutter).pdf')}
+                                                href={require('./Shalin Resume.pdf')}
                                                 download="Shalin_Resume.pdf"
                                                 className="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-all transform hover:scale-105 flex items-center gap-2"
                                             >
@@ -329,76 +342,47 @@ export const Component = () => {
                                 </div>
                                 <section id="about" className="py-16 px-8 bg-gray-900">
                                     <div className="max-w-6xl mx-auto">
-                                        <h2 className="text-3xl font-bold text-primary-400 mb-10 flex items-center gap-2">
+                                        <h2 className="text-3xl font-bold text-primary-400 mb-8 flex items-center gap-2">
                                             <span className="material-symbols-outlined">person</span>
                                             About Me
                                         </h2>
-                                        <div className="h-4"></div>
-                                        <div className="grid md:grid-cols-3 gap-8">
-                                            {/* About Card */}
-                                            <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg flex flex-col justify-between">
-                                                <h3 className="text-2xl font-semibold text-primary-300 mb-4">Who am I?</h3>
-                                                <p className="text-gray-300 leading-relaxed mb-4">
-                                                    Hi! I'm <span className="text-primary-400 font-bold">Shalin Shah</span>, a passionate Computer Science B.Tech student and a creative full-stack developer. I love building smart, user-centric web and mobile apps using the latest technologies. My journey blends technical expertise with a strong sense of design and a drive to solve real-world problems.
+                                        <div className="grid md:grid-cols-2 gap-8">
+                                            <div>
+                                                <h3 className="text-xl font-semibold text-gray-200 mb-4">Background</h3>
+                                                <p className="text-gray-400 mb-4">
+                                                    I'm a passionate Computer Science student with a strong interest in mobile and web development. 
+                                                    I enjoy creating applications that solve real-world problems and provide great user experiences.
+                                                </p>
+                                                <p className="text-gray-400 mb-4">
+                                                    Currently pursuing my B.Tech in Computer Science and working on various projects to expand my skills 
+                                                    in Flutter, React, and other modern technologies.
                                                 </p>
                                             </div>
-
-                                            {/* Technical Skills Card */}
-                                            <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg">
-                                                <h3 className="text-2xl font-semibold text-primary-300 mb-4">Technical Skills</h3>
-                                                <div className="mb-3">
-                                                    <h4 className="text-sm font-semibold text-primary-400 mb-2">Languages</h4>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        <span className="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded text-xs border border-blue-500">Python</span>
-                                                        <span className="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded text-xs border border-cyan-500">Dart</span>
-                                                        <span className="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded text-xs border border-yellow-500">JavaScript</span>
-                                                        <span className="px-3 py-1 bg-gray-500 bg-opacity-20 text-gray-300 rounded text-xs border border-gray-500">HTML</span>
-                                                        <span className="px-3 py-1 bg-orange-400 bg-opacity-20 text-orange-200 rounded text-xs border border-orange-400">CSS</span>
-                                                        <span className="px-3 py-1 bg-green-500 bg-opacity-20 text-green-300 rounded text-xs border border-green-500">Node.js</span>
-                                                        <span className="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded text-xs border border-purple-500">Kotlin</span>
-                                                        <span className="px-3 py-1 bg-indigo-500 bg-opacity-20 text-indigo-300 rounded text-xs border border-indigo-500">SQL (MySQL)</span>
-                                                        <span className="px-3 py-1 bg-green-700 bg-opacity-20 text-green-400 rounded text-xs border border-green-700">JAVA</span>
-                                                        <span className="px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-300 rounded text-xs border border-pink-500">JSX</span>
+                                            <div>
+                                                <h3 className="text-xl font-semibold text-gray-200 mb-4">Skills & Technologies</h3>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div>
+                                                        <h4 className="text-primary-400 font-medium mb-2">Frontend</h4>
+                                                        <ul className="text-gray-400 space-y-1">
+                                                            <li>React</li>
+                                                            <li>JavaScript</li>
+                                                            <li>HTML/CSS</li>
+                                                            <li>Flutter</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-primary-400 font-medium mb-2">Backend</h4>
+                                                        <ul className="text-gray-400 space-y-1">
+                                                            <li>Node.js</li>
+                                                            <li>Python</li>
+                                                            <li>MongoDB</li>
+                                                            <li>Firebase</li>
+                                                        </ul>
                                                     </div>
                                                 </div>
-                                                <div className="mb-3">
-                                                    <h4 className="text-sm font-semibold text-primary-400 mb-2">Libraries & Frameworks</h4>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        <span className="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded text-xs border border-blue-500">Flutter</span>
-                                                        <span className="px-3 py-1 bg-green-500 bg-opacity-20 text-green-300 rounded text-xs border border-green-500">Flask</span>
-                                                        <span className="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded text-xs border border-yellow-500">FastAPI</span>
-                                                        <span className="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded text-xs border border-cyan-500">React (with JSX)</span>
-                                                        <span className="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded text-xs border border-purple-500">Express.js</span>
-                                                        <span className="px-3 py-1 bg-gray-500 bg-opacity-20 text-gray-300 rounded text-xs border border-gray-500">Material UI</span>
-                                                        <span className="px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-300 rounded text-xs border border-pink-500">Provider (Flutter)</span>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-sm font-semibold text-primary-400 mb-2">Tools & Technologies</h4>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        <span className="px-3 py-1 bg-orange-500 bg-opacity-20 text-orange-300 rounded text-xs border border-orange-500">Firebase</span>
-                                                        <span className="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded text-xs border border-yellow-500">MongoDB</span>
-                                                        <span className="px-3 py-1 bg-green-700 bg-opacity-20 text-green-400 rounded text-xs border border-green-700">REST API</span>
-                                                        <span className="px-3 py-1 bg-gray-700 bg-opacity-20 text-gray-300 rounded text-xs border border-gray-700">Git</span>
-                                                        <span className="px-3 py-1 bg-blue-700 bg-opacity-20 text-blue-300 rounded text-xs border border-blue-700">Android Studio</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Soft Skills Card */}
-                                            <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg flex flex-col justify-between">
-                                                <h3 className="text-2xl font-semibold text-primary-300 mb-4">Soft Skills</h3>
-                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-300 text-sm">
-                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-primary-400 rounded-full"></span>Excellent communication</li>
-                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-green-400 rounded-full"></span>Troubleshooting</li>
-                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-purple-400 rounded-full"></span>Problem Solving</li>
-                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-yellow-400 rounded-full"></span>Team Management</li>
-                                                    <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-400 rounded-full"></span>Decision Making</li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* Next: "Add interactive skill level bars with animations" */}
                                 </section>
                             </div>
 
@@ -784,82 +768,216 @@ export const Component = () => {
                                 {/* Next: "Add more experience entries or certifications section" */}
                             </section>
 
-                            <section id="contact" className="py-16 px-8 bg-gray-800">
-                                <div className="max-w-6xl mx-auto">
-                                    <h2 className="text-3xl font-bold text-primary-400 mb-8 flex items-center gap-2">
-                                        <span className="material-symbols-outlined">terminal</span>
-                                        Contact Terminal
-                                    </h2>
-                                    <div className="grid lg:grid-cols-2 gap-8">
-                                        <div className="bg-gray-900 rounded-lg border border-gray-700 overflow-hidden">
-                                            <div className="bg-gray-800 p-3 border-b border-gray-700 flex items-center gap-2">
-                                                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                                                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                                                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                                <span className="text-sm text-gray-400 ml-2">contact@shalin.dev</span>
+                            <section id="contact" className="py-20 px-8 bg-gradient-to-br from-gray-800 via-gray-900 to-black relative overflow-hidden">
+                                {/* Background Pattern */}
+                                <div className="absolute inset-0 opacity-10">
+                                    <div className="absolute inset-0" style={{
+                                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+                                    }}></div>
+                                </div>
+                                
+                                <div className="max-w-7xl mx-auto relative z-10">
+                                    <div className="text-center mb-12">
+                                        <h2 className="text-4xl md:text-5xl font-bold text-primary-400 mb-4 flex items-center justify-center gap-3">
+                                            <span className="material-symbols-outlined text-4xl md:text-5xl">terminal</span>
+                                            Contact Terminal
+                                        </h2>
+                                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                                            Reach out through the terminal interface or use the quick contact options below
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="grid lg:grid-cols-3 gap-8">
+                                        {/* VS Code Terminal */}
+                                        <div className="lg:col-span-2">
+                                            <div className="bg-[#1e1e1e] rounded-xl border border-gray-600 overflow-hidden shadow-2xl">
+                                                {/* Terminal Title Bar */}
+                                                <div className="bg-[#2d2d30] border-b border-gray-600 px-4 py-3">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="flex gap-2">
+                                                                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                                                                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                                                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                                                            </div>
+                                                            <span className="text-gray-300 text-sm font-medium ml-3">PowerShell - Contact Interface</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-1">
+                                                            <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-600 rounded transition-colors">
+                                                                <span className="material-symbols-outlined text-gray-400 text-sm">minimize</span>
+                                                            </button>
+                                                            <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-600 rounded transition-colors">
+                                                                <span className="material-symbols-outlined text-gray-400 text-sm">close</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* Terminal Content */}
+                                                <div className="bg-[#1e1e1e] p-6 font-mono text-sm leading-relaxed min-h-[500px]">
+                                                    <div className="space-y-4">
+                                                        {/* Welcome */}
+                                                        <div className="text-[#4fc1ff]">
+                                                            <div className="mb-1">PowerShell 7.4.0</div>
+                                                            <div className="text-gray-400 text-xs mb-3">Shalin Shah Portfolio Terminal v1.0</div>
+                                                        </div>
+
+                                                        {/* Command 1: whoami */}
+                                                        <div className="space-y-2">
+                                                            <div className="flex items-center">
+                                                                <span className="text-[#4fc1ff] font-bold">PS</span>
+                                                                <span className="text-gray-400 mx-2">C:\shalin-portfolio{'>'}</span>
+                                                                <span className="text-white">whoami</span>
+                                                            </div>
+                                                            <div className="ml-6 space-y-1">
+                                                                <div className="text-green-400">🧑‍💻 Shalin Shah</div>
+                                                                <div className="text-gray-300">Full Stack Developer & Computer Science Student</div>
+                                                                <div className="text-cyan-400">Specializing in Flutter & MERN Stack Development</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Command 2: contact --list */}
+                                                        <div className="space-y-2">
+                                                            <div className="flex items-center">
+                                                                <span className="text-[#4fc1ff] font-bold">PS</span>
+                                                                <span className="text-gray-400 mx-2">C:\shalin-portfolio{'>'}</span>
+                                                                <span className="text-white">contact --list</span>
+                                                            </div>
+                                                            <div className="ml-6 space-y-3">
+                                                                <div className="text-yellow-400 text-xs mb-2">Available contact methods:</div>
+                                                                
+                                                                <a href="mailto:2002shalin@gmail.com" className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-all duration-200 group border border-transparent hover:border-cyan-500/30">
+                                                                    <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                                        <span className="material-symbols-outlined text-white text-sm">mail</span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="text-cyan-400 font-medium">Email</div>
+                                                                        <div className="text-gray-300 text-xs">2002shalin@gmail.com</div>
+                                                                    </div>
+                                                                </a>
+
+                                                                <a href="https://www.linkedin.com/in/shalin-shah0705/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-all duration-200 group border border-transparent hover:border-blue-500/30">
+                                                                    <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                                        <i className="fab fa-linkedin text-white text-sm"></i>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="text-blue-400 font-medium">LinkedIn</div>
+                                                                        <div className="text-gray-300 text-xs">Professional Network</div>
+                                                                    </div>
+                                                                </a>
+
+                                                                <a href="https://github.com/Shalin-Shah-2002" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-all duration-200 group border border-transparent hover:border-purple-500/30">
+                                                                    <div className="w-8 h-8 bg-gradient-to-r from-gray-700 to-gray-800 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                                        <i className="fab fa-github text-white text-sm"></i>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="text-purple-400 font-medium">GitHub</div>
+                                                                        <div className="text-gray-300 text-xs">Code Repository</div>
+                                                                    </div>
+                                                                </a>
+
+                                                                <a href="https://medium.com/@2002shalin" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-all duration-200 group border border-transparent hover:border-green-500/30">
+                                                                    <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                                        <i className="fab fa-medium text-white text-sm"></i>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="text-green-400 font-medium">Medium</div>
+                                                                        <div className="text-gray-300 text-xs">Tech Articles</div>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Command 3: status */}
+                                                        <div className="space-y-2">
+                                                            <div className="flex items-center">
+                                                                <span className="text-[#4fc1ff] font-bold">PS</span>
+                                                                <span className="text-gray-400 mx-2">C:\shalin-portfolio{'>'}</span>
+                                                                <span className="text-white">status</span>
+                                                            </div>
+                                                            <div className="ml-6 space-y-1">
+                                                                <div className="text-green-400">✅ Available for opportunities</div>
+                                                                <div className="text-cyan-400">🚀 Open to collaborations</div>
+                                                                <div className="text-yellow-400">📍 Based in Anand, Gujarat, India</div>
+                                                                <div className="text-purple-400">⏰ Usually responds within 24 hours</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Current prompt */}
+                                                        <div className="flex items-center pt-2">
+                                                            <span className="text-[#4fc1ff] font-bold">PS</span>
+                                                            <span className="text-gray-400 mx-2">C:\shalin-portfolio{'>'}</span>
+                                                            <span className="text-white animate-pulse">_</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="p-6 font-mono">
-                                                <div className="space-y-2 text-sm">
-                                                    <div className="flex">
-                                                        <span className="text-green-400">shalin@portfolio</span>
-                                                        <span className="text-gray-500">:</span>
-                                                        <span className="text-blue-400">~</span>
-                                                        <span className="text-gray-300">$ whoami</span>
+                                        </div>
+
+                                        {/* Quick Actions Sidebar */}
+                                        <div className="space-y-6">
+                                            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-600 shadow-xl">
+                                                <h3 className="text-xl font-bold text-primary-400 mb-4 flex items-center gap-2">
+                                                    <span className="material-symbols-outlined">flash_on</span>
+                                                    Quick Actions
+                                                </h3>
+                                                <div className="space-y-3">
+                                                    <a 
+                                                        href="mailto:2002shalin@gmail.com?subject=Portfolio Contact&body=Hi Shalin, I found your portfolio and would like to connect!"
+                                                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-primary-500/20 to-primary-600/20 rounded-lg hover:from-primary-500/30 hover:to-primary-600/30 transition-all duration-200 border border-primary-500/30 group"
+                                                    >
+                                                        <span className="material-symbols-outlined text-primary-400 group-hover:scale-110 transition-transform">send</span>
+                                                        <div>
+                                                            <div className="text-white font-medium">Send Email</div>
+                                                            <div className="text-gray-400 text-sm">Direct message</div>
+                                                        </div>
+                                                    </a>
+
+                                                    <a 
+                                                        href={require('./Shalin Resume.pdf')}
+                                                        download="Shalin_Resume.pdf"
+                                                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-green-500/20 to-green-600/20 rounded-lg hover:from-green-500/30 hover:to-green-600/30 transition-all duration-200 border border-green-500/30 group"
+                                                    >
+                                                        <span className="material-symbols-outlined text-green-400 group-hover:scale-110 transition-transform">download</span>
+                                                        <div>
+                                                            <div className="text-white font-medium">Download Resume</div>
+                                                            <div className="text-gray-400 text-sm">PDF format</div>
+                                                        </div>
+                                                    </a>
+
+                                                    <a 
+                                                        href="https://cal.com/shalin-shah" 
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-500/20 to-purple-600/20 rounded-lg hover:from-purple-500/30 hover:to-purple-600/30 transition-all duration-200 border border-purple-500/30 group"
+                                                    >
+                                                        <span className="material-symbols-outlined text-purple-400 group-hover:scale-110 transition-transform">event</span>
+                                                        <div>
+                                                            <div className="text-white font-medium">Schedule Call</div>
+                                                            <div className="text-gray-400 text-sm">Video meeting</div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-600 shadow-xl">
+                                                <h3 className="text-lg font-bold text-primary-400 mb-4 flex items-center gap-2">
+                                                    <span className="material-symbols-outlined">location_on</span>
+                                                    Location & Time
+                                                </h3>
+                                                <div className="space-y-3 text-sm">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                                        <span className="text-gray-300">Currently Online</span>
                                                     </div>
                                                     <div className="text-gray-400">
-                                                        Shalin Shah - Full Stack Developer
+                                                        🌍 Anand, Gujarat, India
                                                     </div>
-
-                                                    <div className="flex mt-4">
-                                                        <span className="text-green-400">shalin@portfolio</span>
-                                                        <span className="text-gray-500">:</span>
-                                                        <span className="text-blue-400">~</span>
-                                                        <span className="text-gray-300">$ ls -la contact/</span>
+                                                    <div className="text-gray-400">
+                                                        🕐 IST (GMT +5:30)
                                                     </div>
-                                                    <div className="text-gray-400 space-y-1 ml-4">
-                                                        <a
-                                                            href="https://mail.google.com/mail/?view=cm&fs=1&to=2002shalin@gmail.com&su=Contact%20from%20Portfolio"
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="flex items-center gap-2 hover:underline hover:text-primary-400 transition-colors"
-                                                        >
-                                                            <span className="material-symbols-outlined text-sm text-primary-400">
-                                                                mail
-                                                            </span>
-                                                            <span>email: 2002shalin@gmail.com</span>
-                                                        </a>
-                                                        <div className="flex items-center gap-2">
-                                                            <i className="fab fa-linkedin text-sm text-blue-400"></i>
-                                                            <span>linkedin: <a href="https://www.linkedin.com/in/shalin-shah0705/">shalin-shah (Flutter Developer)</a></span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <i className="fab fa-github text-sm text-gray-400"></i>
-                                                            <span>github: <a href="https://github.com/Shalin-Shah-2002"> Shalin-Shah-2002</a></span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="material-symbols-outlined text-sm text-green-400">
-                                                                location_on
-                                                            </span>
-                                                            <span>Current location: Anand,India</span>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div className="flex mt-4">
-                                                        <span className="text-green-400">shalin@portfolio</span>
-                                                        <span className="text-gray-500">:</span>
-                                                        <span className="text-blue-400">~</span>
-                                                        <span className="text-gray-300">$ cat status.txt</span>
-                                                    </div>
-                                                    <div className="text-green-400">
-                                                        Available for internships and collaborations
-                                                    </div>
-
-                                                    <div className="flex mt-4">
-                                                        <span className="text-green-400">shalin@portfolio</span>
-                                                        <span className="text-gray-500">:</span>
-                                                        <span className="text-blue-400">~</span>
-                                                        <span className="text-gray-300 animate-pulse">$ _</span>
+                                                    <div className="text-gray-400">
+                                                        ⚡ Usually responds within 24 hours
                                                     </div>
                                                 </div>
                                             </div>
